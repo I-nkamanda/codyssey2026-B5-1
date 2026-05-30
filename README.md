@@ -39,11 +39,12 @@ DCL은 데이터(Data)를 제어(Control)하는 명령어(Language)이다. 작�
 등이 대표적이다.
 
 ### TCL (Data/Transaction Control Language)
-TCL은 데이터의 트랜잭션(Transaction) 제어(Control) 명령어(Language)이다.
-- `COMMIT`
-- `ROLLBACK`
-- `SAVEPOINT`
+TCL은 데이터의 트랜잭션(Transaction) 제어(Control) 명령어(Language)이다. 상술한 DML(`INSERT`, `UPDATE`, `DELETE`등 테이블 안의 데이터를 작성 및 수정하는 명령어 뭉치들)로 데이터를 조작한 뒤에, 그 결과를 실제 데이터베이스에 최종 반영할지, 아님 취소하고 이전 상태로 되돌릴(롤백)지 결정하는 명령어이다. 마치 Git 등지에 commit하고 rebase하고 reset 하는 느낌이 많이 들었다. 주요 명령어로는,
 
+- 방금 한 작업들을 디스크에 영구 저장하는 명령어인 `COMMIT` (commit을 해야 다른 작업자들에게도 반영된 결과물이 보인다)
+- 바로 직전의 Commit 직후 상태로 작업을 전부 취소하고 되돌리는 `ROLLBACK`
+- Query가 길 때, 중간에 체크포인트를 만들어 두고, 에러가 나면 맨 처음이 아니라 그 특정 지점으로 되돌릴 수 있게 만들어놓은 `SAVEPOINT`
+등이 대표적이다.
 
 
 ## CRUD란?
