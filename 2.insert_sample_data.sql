@@ -1,5 +1,5 @@
 -- (1) 사용자 10명 등록
-INSERT INTO users (id, name, room_number) VALUES
+INSERT INTO users (id, name, room_number) VALUES --이 명령어의 구조는 INSERT INTO 테이블명 (컬럼1, 컬럼2, ...) VALUES (값1, 값2, ...); 로 설정했다.
 (1, '이진걸', '201호'),
 (2, '김철수', '202호'),
 (3, '이영희', '203호'),
@@ -23,6 +23,9 @@ INSERT INTO categories (id, category_name, warning_days) VALUES
 (8, '냉동식품', 30),
 (9, '반찬류', 4),
 (10, '계란/알류', 7);
+-- 식재료 카테고리는 연번, 식재료 종류, 그리고 임의로 유통기한을 주었다.
+-- 실제 사용 시에는 각 카테고리에 맞는 유통기한 임박 경고 기준일에 맞춰서 로직을 돌려야 하리다.
+
 
 -- (3) 냉장고 안의 식재료 10개 등록
 INSERT INTO ingredients (id, name, expiration_date, status, user_id, category_id) VALUES
@@ -36,6 +39,9 @@ INSERT INTO ingredients (id, name, expiration_date, status, user_id, category_id
 (8, '냉동만두 1kg', '2026-12-31', '정상', 9, 8),
 (9, '엄마표 멸치볶음', '2026-06-01', '위험', 10, 9),
 (10, '신선란 10구', '2026-06-07', '정상', 7, 10);
+-- 날짜는 2026-05-26 기준으로 유통기한이 임박한 것과 아직 여유가 있는 것을 섞어서 넣어 보았습니다. 또한, 양상추는 이미 유통기한이 지났으므로 '폐기대상'으로 상태를 설정.. 
+-- 생연어 필렛과 엄마표 멸치볶음은 유통기한이 오늘이나 내일로 임박했으므로 '위험'으로 상태를 설정했습니다. 나머지는 모두 '정상'으로 설정.  
+
 
 -- (4) 반출 및 소비 로그 10개 등록
 INSERT INTO refrigerator_logs (id, ingredient_id, user_id, action_type, logged_at) VALUES
@@ -49,3 +55,7 @@ INSERT INTO refrigerator_logs (id, ingredient_id, user_id, action_type, logged_a
 (8, 1, 4, '반출', '2026-05-28 12:10:00'),  -- 진걸님 우유를 민수님이 꺼내 먹음?!
 (9, 8, 9, '반출', '2026-05-24 23:00:00'),
 (10, 4, 4, '반출', '2026-05-28 14:00:00');
+
+-- 로그는 식재료가 반출되거나 소비되거나 폐기될 때마다 기록된다고 가정하고, 
+-- 다양한 행동 유형과 시간을 섞어서 설정. 예를 들어, 양상추는 이미 썩어서 폐기 처리되었고, 진걸의 우유는 민수가 꺼내 먹은 것으로 설정함. 
+-- 또한, 유통기한이 임박한 생연어 필렛도 반출된 것으로 설정.
